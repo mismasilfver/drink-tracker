@@ -7,6 +7,10 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
     background-color: #222639;
+    background-image: 
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 100%),
+        linear-gradient(45deg, rgba(255, 255, 255, 0.01) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.01) 75%);
+    background-size: 100% 100%, 20px 20px;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -21,6 +25,20 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.03) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.03) 75%);
+    background-size: 20px 20px;
+    pointer-events: none;
 }
 
 .header-icon {
@@ -31,6 +49,8 @@ header {
     justify-content: center;
     cursor: pointer;
     transition: transform 0.3s ease;
+    position: relative;
+    z-index: 1;
 }
 
 .header-icon img {
@@ -46,6 +66,8 @@ header {
 h1 {
     font-size: 2rem;
     font-weight: normal;
+    position: relative;
+    z-index: 1;
 }
 
 main {
@@ -77,6 +99,20 @@ main {
     text-align: center;
     margin-bottom: 1rem;
     color: #FFFFFF;
+    position: relative;
+    overflow: hidden;
+}
+
+.counter-display::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.02) 75%);
+    background-size: 20px 20px;
+    pointer-events: none;
 }
 
 .counter-display.advanced {
@@ -87,21 +123,27 @@ main {
 
 .counter-item {
     text-align: center;
+    position: relative;
+    z-index: 1;
 }
 
 .counter-label {
     font-size: 2.25rem;
     margin-bottom: 0.5rem;
+    opacity: 0.9;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .count {
     font-size: 4.5rem;
     color: #FFFFFF;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 #simpleDrinkCount {
     font-size: 6.5rem;
     color: #FFFFFF;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .buttons-container {
@@ -129,13 +171,26 @@ main {
     color: #F2F2F2;
     cursor: pointer;
     font-size: 1.5rem;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     -webkit-tap-highlight-color: transparent;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
+    pointer-events: none;
 }
 
 .button:active {
@@ -143,27 +198,32 @@ main {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+}
+
 /* Different shades of green for add buttons */
 #simpleAddButton, #addDrinkButton {
-    background-color: #2E7D32;
+    background: linear-gradient(145deg, #2E7D32, #256C29);
 }
 
 #addSodaButton {
-    background-color: #43A047;
+    background: linear-gradient(145deg, #43A047, #388E3C);
 }
 
 #addFunButton {
-    background-color: #4CAF50;
+    background: linear-gradient(145deg, #4CAF50, #43A047);
 }
 
 .subtract-button {
-    background-color: #E76F51;
+    background: linear-gradient(145deg, #E76F51, #D45D3F);
     width: 110px;
     height: 110px;
 }
 
 .reset-button {
-    background-color: #F4A261;
+    background: linear-gradient(145deg, #F4A261, #E3914E);
     width: 90px;
     height: 90px;
 }
@@ -174,6 +234,7 @@ main {
     line-height: 1;
     font-weight: 300;
     color: #F2F2F2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .button-text {
@@ -183,6 +244,7 @@ main {
     letter-spacing: 0.5px;
     font-weight: 600;
     color: #F2F2F2;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 /* Simple mode specific styles */
