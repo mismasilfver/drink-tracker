@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drink Counter</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Drink Counter</h1>
+      <div class="header-icon" id="modeToggle">
+        <img src="assets/icon.svg" alt="Toggle advanced mode" />
+      </div>
+    </header>
+    <main>
+      <!-- Simple Mode View -->
+      <div id="simpleMode" class="mode-view active">
+        <div class="counter-display">
+          <div id="simpleDrinkCount">0</div>
+        </div>
+        <div class="buttons-container">
+          <div class="button-column">
+            <button id="simpleAddButton" class="button add-button">
+              <span class="plus-symbol">+</span>
+              <span class="button-text">ADD DRINK</span>
+            </button>
+            <button id="simpleSubtractButton" class="button subtract-button">
+              <span class="minus-symbol">-</span>
+            </button>
+            <button id="simpleResetButton" class="button reset-button">
+              RESET
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Advanced Mode View -->
+      <div id="advancedMode" class="mode-view">
+        <div class="counter-display advanced">
+          <div class="counter-item">
+            <div class="counter-label">🍺</div>
+            <div id="drinkCount" class="count">0</div>
+          </div>
+          <div class="counter-item">
+            <div class="counter-label">🧊</div>
+            <div id="sodaCount" class="count">0</div>
+          </div>
+          <div class="counter-item">
+            <div class="counter-label">🍻</div>
+            <div id="funCount" class="count">0</div>
+          </div>
+        </div>
+        <div class="buttons-container advanced">
+          <div class="button-column">
+            <button id="addDrinkButton" class="button add-button">
+              <span class="plus-symbol">+</span>
+              <span class="button-text">ADD DRINK</span>
+            </button>
+            <button id="subtractDrinkButton" class="button subtract-button">
+              <span class="minus-symbol">-</span>
+            </button>
+          </div>
+          <div class="button-column">
+            <button id="addSodaButton" class="button add-button">
+              <span class="plus-symbol">+</span>
+              <span class="button-text">ADD SODA</span>
+            </button>
+            <button id="subtractSodaButton" class="button subtract-button">
+              <span class="minus-symbol">-</span>
+            </button>
+          </div>
+          <div class="button-column">
+            <button id="addFunButton" class="button add-button">
+              <span class="plus-symbol">+</span>
+              <span class="button-text">ADD FUN</span>
+            </button>
+            <button id="subtractFunButton" class="button subtract-button">
+              <span class="minus-symbol">-</span>
+            </button>
+          </div>
+        </div>
+        <button id="advancedResetButton" class="button reset-button">
+          RESET
+        </button>
+      </div>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>

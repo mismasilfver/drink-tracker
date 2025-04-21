@@ -1,0 +1,98 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+Drink Counter App - Business Specifications (Web App Version)
+Purpose
+
+A simple web-based application to track the number of drinks ordered in a restaurant
+
+Target User
+
+Personal use only (single user)
+
+Core Functionality
+
+Track the number of drinks consumed
+Ability to increase count by one
+Ability to decrease count by one
+View total count in a large, easily readable format
+Reset count to zero when needed
+
+User Experience Requirements
+
+Clean, simple interface
+Color-coded buttons for different functions
+Large, easily tappable buttons for primary functions
+Minimalistic design focused on functionality
+
+Technical Specifications
+Platform
+
+Web-based application (accessible via any web browser)
+Optimized for mobile devices
+
+Development Environment
+
+HTML5, CSS3, and JavaScript
+No frameworks or external dependencies
+Designed to work offline once loaded
+
+UI Components
+
+Single HTML page with:
+
+Large increment button (primary action)
+Smaller decrement button
+Count display area (showing current count in large font)
+Reset button
+Visual feedback when buttons are pressed
+
+Data Management
+
+Data persistence using localStorage API
+Store count value in browser's local storage
+Restore count value on page reload
+
+UI Design
+
+Primary color: Green for increment button
+Secondary color: Red for decrement button
+Accent color: Orange for reset button
+Neutral color: Blue for header and white for count display
+High contrast between buttons and background
+Large, readable font for counter display
+
+Application Flow
+
+Page loads, retrieves last saved count value from localStorage
+User interacts with buttons:
+
+Tap large green button to increment count
+Tap small red button to decrement count
+Tap orange button to set count to zero
+
+Count is displayed in real-time
+Count is automatically saved to localStorage when changed
+
+Implementation Approach
+
+Create a simple HTML page with required UI elements
+Use CSS for styling buttons and counter display
+Implement JavaScript for button functionality and counter logic
+Add localStorage API for data persistence
+
+Deployment
+
+Save the HTML file directly to the mobile device
+Access via web browser
+Option to add to home screen for quick access
+
+Benefits Over Native App
+
+No installation required
+Works on any device with a web browser
+Easy to update or modify
+No development environment needed beyond a text editor
+No app store submission process
