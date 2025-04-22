@@ -5,6 +5,8 @@
 A simple web application that allows users to track their bar tab in places
 with less than perfect service.
 
+This is a first trial of Cursor.ai and it's capabilities of agentic mode, ask mode.
+
 ## Features
 
 - Simple Mode:
