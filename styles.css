@@ -387,4 +387,13 @@ main {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+}
+
+/* Mode Toggle Animation */
+#modeToggle {
+  transition: transform 0.3s ease;
+}
+
+#modeToggle.advanced {
+  transform: rotate(180deg);
 } 

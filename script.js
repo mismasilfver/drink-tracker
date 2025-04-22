@@ -123,9 +123,11 @@ function updateModeDisplay() {
   if (isAdvancedMode) {
     simpleMode.classList.remove("active");
     advancedMode.classList.add("active");
+    modeToggle.classList.add("advanced");
   } else {
     simpleMode.classList.add("active");
     advancedMode.classList.remove("active");
+    modeToggle.classList.remove("advanced");
   }
   localStorage.setItem("isAdvancedMode", isAdvancedMode.toString());
 }

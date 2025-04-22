@@ -46,3 +46,8 @@ This is a first trial of Cursor.ai and it's capabilities of agentic mode, ask mo
 
 - _FEATURE_ ADDED: log function that keeps track of when drink was added, removing latest addition if decrease is pressed
 - ADDED: Debugging logs.
+
+# Drink Tracker 1.1.1
+
+- Fixed the order of the icons
+- Added the flip animation back to the advanced mode toggle
