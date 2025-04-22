@@ -31,6 +31,7 @@ with less than perfect service.
 
 - Fix the layout of the reset button
 - Fix the layout of the plus and minus buttons
+- Fix the mobile viewport issue due to buttons not being responsive enough
 - Add log on when the user clicks the plus or minus button
 - Add ability to view the log of clicks
 - Add button for staff drinks
