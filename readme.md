@@ -9,6 +9,8 @@ This is a first trial of Cursor.ai and it's capabilities of agentic mode, ask mo
 
 ## Features
 
+- Uses local storate to keep track of state on user's device.
+
 - Simple Mode:
 
   - Single drink counter
@@ -34,7 +36,13 @@ This is a first trial of Cursor.ai and it's capabilities of agentic mode, ask mo
 - Fix the layout of the reset button
 - Fix the layout of the plus and minus buttons
 - Fix the mobile viewport issue due to buttons not being responsive enough
-- Add log on when the user clicks the plus or minus button
-- Add ability to view the log of clicks
+- Add ability to view the log of clicks DONE
 - Add button for staff drinks
 - Add picture capability when clicking add button
+- Set baseline price for each drink to be shown in the entry log
+- ? Refactor the views to different files for better management
+
+# Drink Tracker 1.1
+
+- _FEATURE_ ADDED: log function that keeps track of when drink was added, removing latest addition if decrease is pressed
+- ADDED: Debugging logs.
