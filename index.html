@@ -33,6 +33,10 @@
           <h2>Fun</h2>
           <div id="funLog" class="log-entries"></div>
         </div>
+        <div class="log-section">
+          <h2>Bottle</h2>
+          <div id="bottleLog" class="log-entries"></div>
+        </div>
       </div>
 
       <!-- Counter View -->
@@ -53,6 +57,24 @@
               <div id="funCount" class="count">0</div>
             </div>
           </div>
+          
+          <!-- 4th category chip -->
+          <div class="extra-category-chip">
+            <div class="chip-emoji">🍾</div>
+            <div id="bottleCount" class="chip-count">0</div>
+            <div class="chip-buttons">
+              <button id="addBottleButton" class="button chip-add-button">
+                <span class="plus-symbol">+</span>
+              </button>
+              <button id="subtractBottleButton" class="button chip-subtract-button">
+              </button>
+            </div>
+          </div>
+          
+          <!-- Confirm button -->
+          <button id="confirmButton" class="button confirm-button">
+            <span class="confirm-text">CONFIRM</span>
+          </button>
           <div class="buttons-container advanced">
             <div class="button-column">
               <button id="addDrinkButton" class="button add-button">
@@ -78,6 +100,33 @@
               <button id="subtractFunButton" class="button subtract-button">
               </button>
             </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Cashier Mode Overlay -->
+      <div id="cashierMode" class="mode-view hidden">
+        <div class="cashier-header">
+          <button id="closeCashierButton" class="button close-button">
+            <span class="close-symbol">✕</span>
+          </button>
+        </div>
+        <div class="cashier-display">
+          <div class="cashier-item">
+            <div class="cashier-emoji">🍺</div>
+            <div id="cashierDrinkCount" class="cashier-count">0</div>
+          </div>
+          <div class="cashier-item">
+            <div class="cashier-emoji">🧊</div>
+            <div id="cashierSodaCount" class="cashier-count">0</div>
+          </div>
+          <div class="cashier-item">
+            <div class="cashier-emoji">🍻</div>
+            <div id="cashierFunCount" class="cashier-count">0</div>
+          </div>
+          <div class="cashier-item">
+            <div class="cashier-emoji">🍾</div>
+            <div id="cashierBottleCount" class="cashier-count">0</div>
           </div>
         </div>
       </div>
