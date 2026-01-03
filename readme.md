@@ -1,4 +1,4 @@
-# Drink Tracker 1.0
+# Drink Tracker 1.2
 
 ## Overview
 
@@ -51,3 +51,6 @@ This is a first trial of Cursor.ai and it's capabilities of agentic mode, ask mo
 
 - Fixed the order of the icons
 - Added the flip animation back to the advanced mode toggle
+
+# Drink Tracker 1.2
+- added animations to emojis and buttons
