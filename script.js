@@ -1,13 +1,5 @@
 // DOM elements
-const modeToggle = document.getElementById("modeToggle");
-const simpleMode = document.getElementById("simpleMode");
 const advancedMode = document.getElementById("advancedMode");
-
-// Simple mode elements
-const simpleDrinkCount = document.getElementById("simpleDrinkCount");
-const simpleAddButton = document.getElementById("simpleAddButton");
-const simpleSubtractButton = document.getElementById("simpleSubtractButton");
-const simpleResetButton = document.getElementById("simpleResetButton");
 
 // Advanced mode elements
 const drinkCount = document.getElementById("drinkCount");
@@ -35,8 +27,11 @@ let logs = {
   fun: JSON.parse(localStorage.getItem("funLog")) || [],
 };
 
-// Initialize current mode from localStorage or default to simple
-let isAdvancedMode = localStorage.getItem("isAdvancedMode") === "true";
+// Header reset button
+const headerResetButton = document.getElementById("headerResetButton");
+
+// Initialize current mode from localStorage or default to advanced
+let isAdvancedMode = true; // Always advanced mode now
 updateModeDisplay();
 
 // Get current time in HH:mm format
@@ -101,9 +96,6 @@ function saveLogs() {
 
 // Update all displays
 function updateDisplays() {
-  // Update simple mode display (shows only drink count)
-  simpleDrinkCount.textContent = counts.drink;
-
   // Update advanced mode displays
   drinkCount.textContent = counts.drink;
   sodaCount.textContent = counts.soda;
@@ -120,16 +112,8 @@ function updateDisplays() {
 
 // Update mode display
 function updateModeDisplay() {
-  if (isAdvancedMode) {
-    simpleMode.classList.remove("active");
-    advancedMode.classList.add("active");
-    modeToggle.classList.add("advanced");
-  } else {
-    simpleMode.classList.add("active");
-    advancedMode.classList.remove("active");
-    modeToggle.classList.remove("advanced");
-  }
-  localStorage.setItem("isAdvancedMode", isAdvancedMode.toString());
+  // Always show advanced mode
+  advancedMode.classList.add("active");
 }
 
 // Reset all counts and logs
@@ -148,26 +132,8 @@ function resetCounts() {
   saveLogs();
 }
 
-// Simple mode event listeners
-simpleAddButton.addEventListener("click", () => {
-  const time = getCurrentTime();
-  console.log("Adding drink at:", time);
-  counts.drink++;
-  logs.drink.push(time);
-  updateDisplays();
-  saveLogs();
-});
-
-simpleSubtractButton.addEventListener("click", () => {
-  if (counts.drink > 0) {
-    counts.drink--;
-    logs.drink.pop();
-    updateDisplays();
-    saveLogs();
-  }
-});
-
-simpleResetButton.addEventListener("click", resetCounts);
+// Header reset button event listener
+headerResetButton.addEventListener("click", resetCounts);
 
 // Advanced mode event listeners
 document.getElementById("addDrinkButton").addEventListener("click", () => {
@@ -222,16 +188,6 @@ document.getElementById("subtractFunButton").addEventListener("click", () => {
     updateDisplays();
     saveLogs();
   }
-});
-
-document
-  .getElementById("advancedResetButton")
-  .addEventListener("click", resetCounts);
-
-// Mode toggle event listener
-modeToggle.addEventListener("click", () => {
-  isAdvancedMode = !isAdvancedMode;
-  updateModeDisplay();
 });
 
 // Log view functionality

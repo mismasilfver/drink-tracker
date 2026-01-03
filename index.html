@@ -13,8 +13,8 @@
         <div class="header-icon" id="logToggle">
           <img src="assets/log.svg" alt="View drink log" />
         </div>
-        <div class="header-icon" id="modeToggle">
-          <img src="assets/icon.svg" alt="Toggle advanced mode" />
+        <div class="header-icon" id="headerResetButton">
+          <img src="assets/trash.svg" alt="Reset" />
         </div>
       </div>
     </header>
@@ -37,29 +37,8 @@
 
       <!-- Counter View -->
       <div id="counterView" class="mode-view active">
-        <!-- Simple Mode View -->
-        <div id="simpleMode" class="mode-view active">
-          <div class="counter-display">
-            <div id="simpleDrinkCount">0</div>
-          </div>
-          <div class="buttons-container">
-            <div class="button-column">
-              <button id="simpleAddButton" class="button add-button">
-                <span class="plus-symbol">+</span>
-                <span class="button-text">ADD DRINK</span>
-              </button>
-              <button id="simpleSubtractButton" class="button subtract-button">
-              </button>
-              <button id="simpleResetButton" class="button reset-button">
-                <img src="assets/trash.svg" alt="Reset" />
-              </button>
-            </div>
-          </div>
-        </div>
-
-
         <!-- Advanced Mode View -->
-        <div id="advancedMode" class="mode-view">
+        <div id="advancedMode" class="mode-view active">
           <div class="counter-display advanced">
             <div class="counter-item">
               <div class="counter-label">🍺</div>
@@ -100,9 +79,6 @@
               </button>
             </div>
           </div>
-          <button id="advancedResetButton" class="button reset-button">
-            <img src="assets/trash.svg" alt="Reset" />
-          </button>
         </div>
       </div>
     </main>
