@@ -5,6 +5,16 @@ const advancedMode = document.getElementById("advancedMode");
 const drinkCount = document.getElementById("drinkCount");
 const sodaCount = document.getElementById("sodaCount");
 const funCount = document.getElementById("funCount");
+const bottleCount = document.getElementById("bottleCount");
+
+// Cashier mode elements
+const confirmButton = document.getElementById("confirmButton");
+const cashierMode = document.getElementById("cashierMode");
+const closeCashierButton = document.getElementById("closeCashierButton");
+const cashierDrinkCount = document.getElementById("cashierDrinkCount");
+const cashierSodaCount = document.getElementById("cashierSodaCount");
+const cashierFunCount = document.getElementById("cashierFunCount");
+const cashierBottleCount = document.getElementById("cashierBottleCount");
 
 // Log view elements
 const logToggle = document.getElementById("logToggle");
@@ -13,18 +23,21 @@ const counterView = document.getElementById("counterView");
 const drinkLog = document.getElementById("drinkLog");
 const sodaLog = document.getElementById("sodaLog");
 const funLog = document.getElementById("funLog");
+const bottleLog = document.getElementById("bottleLog");
 
 // Initialize counts and logs from localStorage or default to empty
 let counts = {
   drink: parseInt(localStorage.getItem("drinkCount")) || 0,
   soda: parseInt(localStorage.getItem("sodaCount")) || 0,
   fun: parseInt(localStorage.getItem("funCount")) || 0,
+  bottle: parseInt(localStorage.getItem("bottleCount")) || 0,
 };
 
 let logs = {
   drink: JSON.parse(localStorage.getItem("drinkLog")) || [],
   soda: JSON.parse(localStorage.getItem("sodaLog")) || [],
   fun: JSON.parse(localStorage.getItem("funLog")) || [],
+  bottle: JSON.parse(localStorage.getItem("bottleLog")) || [],
 };
 
 // Header reset button
@@ -49,7 +62,7 @@ function updateLogDisplay() {
   console.log("Updating log display");
   console.log("Current logs:", logs);
 
-  if (!drinkLog || !sodaLog || !funLog) {
+  if (!drinkLog || !sodaLog || !funLog || !bottleLog) {
     console.error("Log elements not found");
     return;
   }
@@ -58,6 +71,7 @@ function updateLogDisplay() {
   drinkLog.innerHTML = "";
   sodaLog.innerHTML = "";
   funLog.innerHTML = "";
+  bottleLog.innerHTML = "";
 
   // Add new entries
   logs.drink.forEach((time) => {
@@ -78,7 +92,21 @@ function updateLogDisplay() {
     funLog.appendChild(div);
   });
 
+  logs.bottle.forEach((time) => {
+    const div = document.createElement("div");
+    div.textContent = `Bottle ${time}`;
+    bottleLog.appendChild(div);
+  });
+
   console.log("Log display updated");
+}
+
+// Update cashier display
+function updateCashierDisplay() {
+  cashierDrinkCount.textContent = counts.drink;
+  cashierSodaCount.textContent = counts.soda;
+  cashierFunCount.textContent = counts.fun;
+  cashierBottleCount.textContent = counts.bottle;
 }
 
 // Save logs to localStorage
@@ -87,6 +115,7 @@ function saveLogs() {
     localStorage.setItem("drinkLog", JSON.stringify(logs.drink));
     localStorage.setItem("sodaLog", JSON.stringify(logs.soda));
     localStorage.setItem("funLog", JSON.stringify(logs.fun));
+    localStorage.setItem("bottleLog", JSON.stringify(logs.bottle));
     console.log("Logs saved:", logs);
     updateLogDisplay(); // Update display after saving
   } catch (error) {
@@ -100,14 +129,19 @@ function updateDisplays() {
   drinkCount.textContent = counts.drink;
   sodaCount.textContent = counts.soda;
   funCount.textContent = counts.fun;
+  bottleCount.textContent = counts.bottle;
 
   // Update log display
   updateLogDisplay();
+  
+  // Update cashier display
+  updateCashierDisplay();
 
   // Save all counts to localStorage
   localStorage.setItem("drinkCount", counts.drink.toString());
   localStorage.setItem("sodaCount", counts.soda.toString());
   localStorage.setItem("funCount", counts.fun.toString());
+  localStorage.setItem("bottleCount", counts.bottle.toString());
 }
 
 // Update mode display
@@ -122,11 +156,13 @@ function resetCounts() {
     drink: 0,
     soda: 0,
     fun: 0,
+    bottle: 0,
   };
   logs = {
     drink: [],
     soda: [],
     fun: [],
+    bottle: [],
   };
   updateDisplays();
   saveLogs();
@@ -188,6 +224,39 @@ document.getElementById("subtractFunButton").addEventListener("click", () => {
     updateDisplays();
     saveLogs();
   }
+});
+
+// 4th category (bottle) event listeners
+document.getElementById("addBottleButton").addEventListener("click", () => {
+  const time = getCurrentTime();
+  console.log("Adding bottle at:", time);
+  counts.bottle++;
+  logs.bottle.push(time);
+  updateDisplays();
+  saveLogs();
+});
+
+document.getElementById("subtractBottleButton").addEventListener("click", () => {
+  if (counts.bottle > 0) {
+    counts.bottle--;
+    logs.bottle.pop();
+    updateDisplays();
+    saveLogs();
+  }
+});
+
+// Cashier mode event listeners
+confirmButton.addEventListener("click", () => {
+  console.log("Opening cashier mode");
+  cashierMode.classList.remove("hidden");
+  counterView.classList.add("hidden");
+  logView.classList.add("hidden");
+});
+
+closeCashierButton.addEventListener("click", () => {
+  console.log("Closing cashier mode");
+  cashierMode.classList.add("hidden");
+  counterView.classList.remove("hidden");
 });
 
 // Log view functionality
