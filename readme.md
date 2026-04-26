@@ -1,4 +1,4 @@
-# Drink Tracker 20
+# Drink Tracker 2.0
 
 ## Overview
 
