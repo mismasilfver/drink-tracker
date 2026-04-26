@@ -534,4 +534,185 @@ main {
 
 #modeToggle.advanced {
   transform: rotate(180deg);
-} 
+}
+
+/* Physical Data Overlay */
+#physicalDataView {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #222639;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+#physicalDataView:not(.hidden) {
+  display: flex;
+}
+
+.physical-header {
+  padding: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.physical-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  gap: 2rem;
+  max-width: 400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.physical-form h2 {
+  font-size: 2rem;
+  font-weight: normal;
+  color: #FFFFFF;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  align-self: flex-start;
+}
+
+.physical-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.physical-field label {
+  font-size: 1rem;
+  color: #F2F2F2;
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.physical-input {
+  background: linear-gradient(145deg, #2D3142, #252A3A);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 1.5rem;
+  color: #FFFFFF;
+  width: 100%;
+  outline: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.physical-input:focus {
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+.gender-options {
+  display: flex;
+  gap: 1rem;
+}
+
+.gender-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(145deg, #2D3142, #252A3A);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  flex: 1;
+  justify-content: center;
+  transition: border-color 0.2s ease;
+}
+
+.gender-option:has(input:checked) {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: linear-gradient(145deg, #3D4260, #353B52);
+}
+
+.gender-option input[type="radio"] {
+  accent-color: #4A90E2;
+  width: 18px;
+  height: 18px;
+}
+
+.gender-option span {
+  font-size: 1.1rem;
+  color: #F2F2F2;
+}
+
+.save-button {
+  background: linear-gradient(145deg, #4A90E2, #357ABD);
+  width: 120px;
+  height: 50px;
+  border-radius: 25px;
+  margin-top: 1rem;
+}
+
+.save-text {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #F2F2F2;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* BAC Panel */
+.bac-panel {
+  background: linear-gradient(145deg, #1a2a4a, #142040);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(74, 144, 226, 0.3);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.bac-title {
+  font-size: 1.25rem;
+  color: #F2F2F2;
+  opacity: 0.7;
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.75rem;
+}
+
+.bac-value {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #4A90E2;
+  text-shadow: 0 2px 8px rgba(74, 144, 226, 0.4);
+  margin-bottom: 0.5rem;
+}
+
+.bac-sober {
+  font-size: 1rem;
+  color: #F2F2F2;
+  opacity: 0.75;
+  margin-bottom: 0.25rem;
+}
+
+.bac-note {
+  font-size: 0.875rem;
+  color: #F2F2F2;
+  opacity: 0.5;
+  font-style: italic;
+}
+
+.bac-disclaimer {
+  font-size: 0.75rem;
+  color: #F2F2F2;
+  opacity: 0.4;
+  font-style: italic;
+  margin-top: 1rem;
+  line-height: 1.4;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 0.75rem;
+}

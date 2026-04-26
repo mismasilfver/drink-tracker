@@ -13,6 +13,9 @@
         <div class="header-icon" id="logToggle">
           <img src="assets/log.svg" alt="View drink log" />
         </div>
+        <div class="header-icon" id="physicalDataToggle">
+          <img src="assets/human.svg" alt="Physical data" />
+        </div>
         <div class="header-icon" id="headerResetButton">
           <img src="assets/trash.svg" alt="Reset" />
         </div>
@@ -36,6 +39,13 @@
         <div class="log-section">
           <h2>Bottle</h2>
           <div id="bottleLog" class="log-entries"></div>
+        </div>
+        <div class="bac-panel" id="bacPanel">
+          <h2 class="bac-title">Estimated BAC^</h2>
+          <div class="bac-value" id="bacValue">0.00 ‰</div>
+          <div class="bac-sober" id="bacSober"></div>
+          <div class="bac-note" id="bacNote">Enter physical data for BAC estimate</div>
+          <div class="bac-disclaimer">^BAC is for rough estimate only. Individuals vary. BAC here is entertainment only and in no way to be construed as legal advice. Don't drink and drive!</div>
         </div>
       </div>
 
@@ -129,6 +139,38 @@
             <div class="cashier-emoji">🍾</div>
             <div id="cashierBottleCount" class="cashier-count">0</div>
           </div>
+        </div>
+      </div>
+
+      <!-- Physical Data Overlay -->
+      <div id="physicalDataView" class="mode-view hidden">
+        <div class="physical-header">
+          <button id="closePhysicalButton" class="button close-button">
+            <span class="close-symbol">✕</span>
+          </button>
+        </div>
+        <div class="physical-form">
+          <h2>Physical Data</h2>
+          <div class="physical-field">
+            <label for="bodyMassInput">Body Mass (kg)</label>
+            <input type="number" id="bodyMassInput" class="physical-input" min="30" max="250" placeholder="70" />
+          </div>
+          <div class="physical-field">
+            <label>Gender</label>
+            <div class="gender-options">
+              <label class="gender-option">
+                <input type="radio" name="gender" id="genderMale" value="male" />
+                <span>Male</span>
+              </label>
+              <label class="gender-option">
+                <input type="radio" name="gender" id="genderFemale" value="female" />
+                <span>Female</span>
+              </label>
+            </div>
+          </div>
+          <button id="savePhysicalButton" class="button save-button">
+            <span class="save-text">Save</span>
+          </button>
         </div>
       </div>
     </main>

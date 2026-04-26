@@ -25,6 +25,20 @@ const sodaLog = document.getElementById("sodaLog");
 const funLog = document.getElementById("funLog");
 const bottleLog = document.getElementById("bottleLog");
 
+// BAC panel elements
+const bacValue = document.getElementById("bacValue");
+const bacSober = document.getElementById("bacSober");
+const bacNote = document.getElementById("bacNote");
+
+// Physical data elements
+const physicalDataToggle = document.getElementById("physicalDataToggle");
+const physicalDataView = document.getElementById("physicalDataView");
+const closePhysicalButton = document.getElementById("closePhysicalButton");
+const savePhysicalButton = document.getElementById("savePhysicalButton");
+const bodyMassInput = document.getElementById("bodyMassInput");
+const genderMale = document.getElementById("genderMale");
+const genderFemale = document.getElementById("genderFemale");
+
 // Initialize counts and logs from localStorage or default to empty
 let counts = {
   drink: parseInt(localStorage.getItem("drinkCount")) || 0,
@@ -47,14 +61,106 @@ const headerResetButton = document.getElementById("headerResetButton");
 let isAdvancedMode = true; // Always advanced mode now
 updateModeDisplay();
 
-// Get current time in HH:mm format
-function getCurrentTime() {
-  const now = new Date();
-  return now.toLocaleTimeString("en-GB", {
+// Load physical data from localStorage
+let physicalData = JSON.parse(localStorage.getItem("physicalData")) || { bodyMass: null, gender: null };
+
+// Get current ISO timestamp
+function getCurrentTimestamp() {
+  return new Date().toISOString();
+}
+
+// Format an ISO timestamp to HH:mm for display
+function formatTimestamp(ts) {
+  const d = new Date(ts);
+  return d.toLocaleTimeString("en-GB", {
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
   });
+}
+
+// Returns true if entry is a full ISO timestamp (v2 format)
+function isISOTimestamp(ts) {
+  return typeof ts === "string" && ts.length > 5 && ts.includes("T");
+}
+
+// BAC constants
+const BAC_DRINK = { volume: 620, abv: 5.0 };
+const BAC_BOTTLE = { volume: 40, abv: 40.0 };
+const ETHANOL_DENSITY = 0.789;
+const BAC_ELIMINATION_RATE = 0.016;
+const R_MALE = 0.68;
+const R_FEMALE = 0.55;
+const BAC_SOBER_THRESHOLD = 0.05; // 0.05% = 0.5‰
+
+// Calculate alcohol grams for a given volume (ml) and ABV (%)
+function alcoholGrams(volumeMl, abv) {
+  return volumeMl * (abv / 100) * ETHANOL_DENSITY;
+}
+
+// Calculate BAC contribution of a single drink item at a given timestamp
+function drinkBACContribution(volumeMl, abv, isoTimestamp, weightKg, r) {
+  const grams = alcoholGrams(volumeMl, abv);
+  const weightG = weightKg * 1000;
+  const rawBAC = (grams / (weightG * r)) * 100;
+  const hoursElapsed = (Date.now() - new Date(isoTimestamp).getTime()) / 3600000;
+  return Math.max(0, rawBAC - BAC_ELIMINATION_RATE * hoursElapsed);
+}
+
+// Calculate current estimated BAC from all logs
+function calculateBAC() {
+  if (!physicalData.bodyMass || !physicalData.gender) return null;
+
+  const r = physicalData.gender === "male" ? R_MALE : R_FEMALE;
+  const weightKg = physicalData.bodyMass;
+  let totalBAC = 0;
+
+  logs.drink.forEach((ts) => {
+    if (!isISOTimestamp(ts)) return;
+    totalBAC += drinkBACContribution(BAC_DRINK.volume, BAC_DRINK.abv, ts, weightKg, r);
+  });
+
+  logs.bottle.forEach((ts) => {
+    if (!isISOTimestamp(ts)) return;
+    totalBAC += drinkBACContribution(BAC_BOTTLE.volume, BAC_BOTTLE.abv, ts, weightKg, r);
+  });
+
+  return Math.max(0, totalBAC);
+}
+
+// Estimate the clock time when BAC drops below the sober threshold
+function soberByTime(currentBAC) {
+  if (currentBAC <= BAC_SOBER_THRESHOLD) return null;
+  const hoursRemaining = (currentBAC - BAC_SOBER_THRESHOLD) / BAC_ELIMINATION_RATE;
+  const soberAt = new Date(Date.now() + hoursRemaining * 3600000);
+  return soberAt.toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+}
+
+// Update BAC panel display
+function updateBACDisplay() {
+  const bac = calculateBAC();
+
+  if (bac === null) {
+    bacValue.textContent = "0.00 \u2030";
+    bacSober.textContent = "";
+    bacNote.textContent = "Enter physical data for BAC estimate";
+    bacNote.classList.remove("hidden");
+    return;
+  }
+
+  bacNote.classList.add("hidden");
+  bacValue.textContent = (bac * 10).toFixed(2) + " \u2030";
+
+  const soberTime = soberByTime(bac);
+  if (soberTime) {
+    bacSober.textContent = "Sober (< 0.5\u2030) by " + soberTime;
+  } else {
+    bacSober.textContent = "BAC is below 0.5\u2030";
+  }
 }
 
 // Update log display
@@ -74,29 +180,35 @@ function updateLogDisplay() {
   bottleLog.innerHTML = "";
 
   // Add new entries
-  logs.drink.forEach((time) => {
+  logs.drink.forEach((ts) => {
     const div = document.createElement("div");
-    div.textContent = `Drink ${time}`;
+    const display = isISOTimestamp(ts) ? formatTimestamp(ts) : ts;
+    div.textContent = `Drink ${display}`;
     drinkLog.appendChild(div);
   });
 
-  logs.soda.forEach((time) => {
+  logs.soda.forEach((ts) => {
     const div = document.createElement("div");
-    div.textContent = `Soda ${time}`;
+    const display = isISOTimestamp(ts) ? formatTimestamp(ts) : ts;
+    div.textContent = `Soda ${display}`;
     sodaLog.appendChild(div);
   });
 
-  logs.fun.forEach((time) => {
+  logs.fun.forEach((ts) => {
     const div = document.createElement("div");
-    div.textContent = `Fun ${time}`;
+    const display = isISOTimestamp(ts) ? formatTimestamp(ts) : ts;
+    div.textContent = `Fun ${display}`;
     funLog.appendChild(div);
   });
 
-  logs.bottle.forEach((time) => {
+  logs.bottle.forEach((ts) => {
     const div = document.createElement("div");
-    div.textContent = `Bottle ${time}`;
+    const display = isISOTimestamp(ts) ? formatTimestamp(ts) : ts;
+    div.textContent = `Bottle ${display}`;
     bottleLog.appendChild(div);
   });
+
+  updateBACDisplay();
 
   console.log("Log display updated");
 }
@@ -173,10 +285,10 @@ headerResetButton.addEventListener("click", resetCounts);
 
 // Advanced mode event listeners
 document.getElementById("addDrinkButton").addEventListener("click", () => {
-  const time = getCurrentTime();
-  console.log("Adding drink at:", time);
+  const ts = getCurrentTimestamp();
+  console.log("Adding drink at:", ts);
   counts.drink++;
-  logs.drink.push(time);
+  logs.drink.push(ts);
   updateDisplays();
   saveLogs();
 });
@@ -191,10 +303,10 @@ document.getElementById("subtractDrinkButton").addEventListener("click", () => {
 });
 
 document.getElementById("addSodaButton").addEventListener("click", () => {
-  const time = getCurrentTime();
-  console.log("Adding soda at:", time);
+  const ts = getCurrentTimestamp();
+  console.log("Adding soda at:", ts);
   counts.soda++;
-  logs.soda.push(time);
+  logs.soda.push(ts);
   updateDisplays();
   saveLogs();
 });
@@ -209,10 +321,10 @@ document.getElementById("subtractSodaButton").addEventListener("click", () => {
 });
 
 document.getElementById("addFunButton").addEventListener("click", () => {
-  const time = getCurrentTime();
-  console.log("Adding fun at:", time);
+  const ts = getCurrentTimestamp();
+  console.log("Adding fun at:", ts);
   counts.fun++;
-  logs.fun.push(time);
+  logs.fun.push(ts);
   updateDisplays();
   saveLogs();
 });
@@ -228,10 +340,10 @@ document.getElementById("subtractFunButton").addEventListener("click", () => {
 
 // 4th category (bottle) event listeners
 document.getElementById("addBottleButton").addEventListener("click", () => {
-  const time = getCurrentTime();
-  console.log("Adding bottle at:", time);
+  const ts = getCurrentTimestamp();
+  console.log("Adding bottle at:", ts);
   counts.bottle++;
-  logs.bottle.push(time);
+  logs.bottle.push(ts);
   updateDisplays();
   saveLogs();
 });
@@ -243,6 +355,44 @@ document.getElementById("subtractBottleButton").addEventListener("click", () => 
     updateDisplays();
     saveLogs();
   }
+});
+
+// Physical data event listeners
+physicalDataToggle.addEventListener("click", () => {
+  console.log("Opening physical data view");
+  physicalDataView.classList.remove("hidden");
+  counterView.classList.add("hidden");
+  logView.classList.add("hidden");
+  bodyMassInput.value = physicalData.bodyMass || "";
+  if (physicalData.gender === "male") genderMale.checked = true;
+  if (physicalData.gender === "female") genderFemale.checked = true;
+});
+
+closePhysicalButton.addEventListener("click", () => {
+  console.log("Closing physical data view");
+  physicalDataView.classList.add("hidden");
+  counterView.classList.remove("hidden");
+});
+
+savePhysicalButton.addEventListener("click", () => {
+  const mass = parseFloat(bodyMassInput.value);
+  const gender = genderMale.checked ? "male" : genderFemale.checked ? "female" : null;
+
+  if (!mass || mass < 30 || mass > 250) {
+    alert("Please enter a valid body mass (30–250 kg).");
+    return;
+  }
+  if (!gender) {
+    alert("Please select a gender.");
+    return;
+  }
+
+  physicalData = { bodyMass: mass, gender };
+  localStorage.setItem("physicalData", JSON.stringify(physicalData));
+  console.log("Physical data saved:", physicalData);
+
+  physicalDataView.classList.add("hidden");
+  counterView.classList.remove("hidden");
 });
 
 // Cashier mode event listeners
@@ -264,12 +414,17 @@ logToggle.addEventListener("click", () => {
   console.log("Toggling log view");
   console.log("Current logs:", logs);
 
-  logView.classList.toggle("hidden");
-  counterView.classList.toggle("hidden");
+  const isOpen = !logView.classList.contains("hidden");
 
-  if (!logView.classList.contains("hidden")) {
+  if (isOpen) {
+    logView.classList.add("hidden");
+    counterView.classList.remove("hidden");
+  } else {
+    logView.classList.remove("hidden");
+    counterView.classList.add("hidden");
+    physicalDataView.classList.add("hidden");
     console.log("Log view is now visible");
-    updateLogDisplay(); // Force update when showing log view
+    updateLogDisplay();
   }
 });
 
