@@ -98,34 +98,50 @@ function alcoholGrams(volumeMl, abv) {
   return volumeMl * (abv / 100) * ETHANOL_DENSITY;
 }
 
-// Calculate BAC contribution of a single drink item at a given timestamp
-function drinkBACContribution(volumeMl, abv, isoTimestamp, weightKg, r) {
-  const grams = alcoholGrams(volumeMl, abv);
-  const weightG = weightKg * 1000;
-  const rawBAC = (grams / (weightG * r)) * 100;
-  const hoursElapsed = (Date.now() - new Date(isoTimestamp).getTime()) / 3600000;
-  return Math.max(0, rawBAC - BAC_ELIMINATION_RATE * hoursElapsed);
-}
-
 // Calculate current estimated BAC from all logs
 function calculateBAC() {
   if (!physicalData.bodyMass || !physicalData.gender) return null;
 
   const r = physicalData.gender === "male" ? R_MALE : R_FEMALE;
   const weightKg = physicalData.bodyMass;
+  const weightG = weightKg * 1000;
+  const bacEvents = [];
+
+  const addBACEvents = (log, drink) => {
+    log.forEach((ts) => {
+      if (!isISOTimestamp(ts)) return;
+
+      const timestamp = new Date(ts).getTime();
+      if (Number.isNaN(timestamp)) return;
+
+      const grams = alcoholGrams(drink.volume, drink.abv);
+      const rawBAC = (grams / (weightG * r)) * 100;
+      bacEvents.push({ timestamp, rawBAC });
+    });
+  };
+
+  addBACEvents(logs.drink, BAC_DRINK);
+  addBACEvents(logs.bottle, BAC_BOTTLE);
+
+  const now = Date.now();
+  const pastEvents = bacEvents
+    .filter((event) => event.timestamp <= now)
+    .sort((a, b) => a.timestamp - b.timestamp);
+
   let totalBAC = 0;
+  let previousTimestamp = pastEvents[0]?.timestamp ?? now;
 
-  logs.drink.forEach((ts) => {
-    if (!isISOTimestamp(ts)) return;
-    totalBAC += drinkBACContribution(BAC_DRINK.volume, BAC_DRINK.abv, ts, weightKg, r);
+  pastEvents.forEach((event) => {
+    const hoursElapsed = (event.timestamp - previousTimestamp) / 3600000;
+    totalBAC = Math.max(0, totalBAC - BAC_ELIMINATION_RATE * hoursElapsed);
+    totalBAC += event.rawBAC;
+    previousTimestamp = event.timestamp;
   });
 
-  logs.bottle.forEach((ts) => {
-    if (!isISOTimestamp(ts)) return;
-    totalBAC += drinkBACContribution(BAC_BOTTLE.volume, BAC_BOTTLE.abv, ts, weightKg, r);
-  });
+  const hoursSinceLastEvent = (now - previousTimestamp) / 3600000;
+  totalBAC = Math.max(0, totalBAC - BAC_ELIMINATION_RATE * hoursSinceLastEvent);
 
-  return Math.max(0, totalBAC);
+  return totalBAC;
 }
 
 // Estimate the clock time when BAC drops below the sober threshold
