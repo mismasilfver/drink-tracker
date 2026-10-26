@@ -451,3 +451,7 @@ document.addEventListener("DOMContentLoaded", () => {
   updateDisplays();
   console.log("Initialization complete");
 });
+
+// Refresh the BAC estimate as alcohol is eliminated over time.
+const BAC_REFRESH_INTERVAL = 10 * 60 * 1000;
+setInterval(updateBACDisplay, BAC_REFRESH_INTERVAL);
