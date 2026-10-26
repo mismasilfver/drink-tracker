@@ -44,3 +44,7 @@ A simple web application that allows users to track their bar tab.
 
 # Drink Tracker 2.0
 - add BAC estimator
+
+# Drink Tracker 2.1
+
+- fix BAC estimate
