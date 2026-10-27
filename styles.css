@@ -37,6 +37,7 @@
     --space-4: 1rem;
     --space-6: 1.5rem;
     --space-8: 2rem;
+    --touch-target: 44px;
 }
 
 * {
@@ -380,8 +381,8 @@ main {
 
 .chip-add-button {
     background: linear-gradient(145deg, var(--color-soda), var(--color-soda-dark));
-    width: 32px;
-    height: 32px;
+    width: var(--touch-target);
+    height: var(--touch-target);
     border-radius: 50%;
 }
 
@@ -391,8 +392,8 @@ main {
 
 .chip-subtract-button {
     background: linear-gradient(145deg, var(--color-danger), var(--color-danger-dark));
-    width: 32px;
-    height: 32px;
+    width: var(--touch-target);
+    height: var(--touch-target);
     border-radius: 50%;
 }
 
