@@ -1,3 +1,44 @@
+:root {
+    --color-background: #222639;
+    --color-header: #1A365D;
+    --color-surface: #2D3142;
+    --color-surface-deep: #252A3A;
+    --color-surface-active: #3D4260;
+    --color-surface-active-deep: #353B52;
+    --color-bac-surface: #1a2a4a;
+    --color-bac-surface-deep: #142040;
+    --color-text: #F2F2F2;
+    --color-text-strong: #FFFFFF;
+    --color-accent: #4A90E2;
+    --color-accent-dark: #357ABD;
+    --color-drink: #2E7D32;
+    --color-drink-dark: #256C29;
+    --color-soda: #43A047;
+    --color-soda-dark: #388E3C;
+    --color-fun: #4CAF50;
+    --color-danger: #E76F51;
+    --color-danger-dark: #D45D3F;
+    --color-reset: #F4A261;
+    --color-reset-dark: #E3914E;
+    --color-focus: rgba(255, 255, 255, 0.2);
+    --color-overlay-light: rgba(255, 255, 255, 0.02);
+    --color-overlay-bright: rgba(255, 255, 255, 0.03);
+    --color-overlay-dark: rgba(0, 0, 0, 0.1);
+    --color-border-subtle: rgba(255, 255, 255, 0.1);
+    --color-border-strong: rgba(255, 255, 255, 0.5);
+    --shadow-control: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-text: 0 2px 4px rgba(0, 0, 0, 0.2);
+    --shadow-pressed: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-bac: 0 0 0 1px rgba(74, 144, 226, 0.3);
+    --shadow-bac-text: 0 2px 8px rgba(74, 144, 226, 0.4);
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,15 +47,15 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-    background-color: #222639;
+    background-color: var(--color-background);
     background-image: 
-        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 100%),
-        linear-gradient(45deg, rgba(255, 255, 255, 0.01) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.01) 75%);
+        radial-gradient(circle at 50% 50%, var(--color-overlay-light) 0%, transparent 100%),
+        linear-gradient(45deg, var(--color-overlay-light) 25%, transparent 25%, transparent 75%, var(--color-overlay-light) 75%);
     background-size: 100% 100%, 20px 20px;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    color: #F2F2F2;
+    color: var(--color-text);
 }
 
 /* 1️⃣ Pulse animation for the button */
@@ -41,9 +82,9 @@ body {
 }
 
 header {
-    background-color: #1A365D;
-    color: #F2F2F2;
-    padding: 1rem;
+    background-color: var(--color-header);
+    color: var(--color-text);
+    padding: var(--space-4);
     text-align: left;
     display: flex;
     justify-content: space-between;
@@ -59,26 +100,26 @@ header::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, rgba(255, 255, 255, 0.03) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.03) 75%);
+    background: linear-gradient(45deg, var(--color-overlay-bright) 25%, transparent 25%, transparent 75%, var(--color-overlay-bright) 75%);
     background-size: 20px 20px;
     pointer-events: none;
 }
 
 .header-icons {
     display: flex;
-    gap: 1rem;
+    gap: var(--space-4);
     align-items: center;
 }
 
 .header-icon {
     cursor: pointer;
-    padding: 0.5rem;
+    padding: var(--space-2);
     border-radius: 50%;
     transition: background-color 0.2s ease;
 }
 
 .header-icon:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: var(--color-overlay-dark);
 }
 
 .header-icon img {
@@ -98,7 +139,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1.5rem;
+    padding: var(--space-6);
 }
 
 .mode-view {
@@ -114,14 +155,14 @@ main {
 }
 
 .counter-display {
-    background: linear-gradient(145deg, #2D3142, #252A3A);
+    background: linear-gradient(145deg, var(--color-surface), var(--color-surface-deep));
     border-radius: 8px;
-    padding: 2rem;
+    padding: var(--space-8);
     width: 100%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow-control), 0 0 0 1px var(--color-border-subtle);
     text-align: center;
     margin-bottom: 1rem;
-    color: #FFFFFF;
+    color: var(--color-text-strong);
     position: relative;
     overflow: hidden;
 }
@@ -133,7 +174,7 @@ main {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.02) 75%);
+    background: linear-gradient(45deg, var(--color-overlay-light) 25%, transparent 25%, transparent 75%, var(--color-overlay-light) 75%);
     background-size: 20px 20px;
     pointer-events: none;
 }
@@ -154,25 +195,25 @@ main {
     font-size: 2.25rem;
     margin-bottom: 0.5rem;
     opacity: 0.9;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-shadow: var(--shadow-text);
 }
 
 .count {
     font-size: 4.5rem;
-    color: #FFFFFF;
+    color: var(--color-text-strong);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 #simpleDrinkCount {
     font-size: 6.5rem;
-    color: #FFFFFF;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: var(--color-text-strong);
+    text-shadow: var(--shadow-text);
 }
 
 .buttons-container {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: var(--space-8);
     width: 100%;
 }
 
@@ -191,7 +232,7 @@ main {
 .button {
     border: none;
     border-radius: 50%;
-    color: #F2F2F2;
+    color: var(--color-text);
     cursor: pointer;
     font-size: 1.5rem;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -200,7 +241,7 @@ main {
     align-items: center;
     justify-content: center;
     -webkit-tap-highlight-color: transparent;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-control);
     position: relative;
     overflow: hidden;
 }
@@ -212,41 +253,41 @@ main {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
+    background: linear-gradient(to bottom, var(--color-border-subtle), var(--color-overlay-dark));
     pointer-events: none;
 }
 
 .button:active {
     transform: scale(0.95);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-pressed);
 }
 
 .button:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 0 3px var(--color-focus);
 }
 
 /* Different shades of green for add buttons */
 #simpleAddButton, #addDrinkButton {
-    background: linear-gradient(145deg, #2E7D32, #256C29);
+    background: linear-gradient(145deg, var(--color-drink), var(--color-drink-dark));
 }
 
 #addSodaButton {
-    background: linear-gradient(145deg, #43A047, #388E3C);
+    background: linear-gradient(145deg, var(--color-soda), var(--color-soda-dark));
 }
 
 #addFunButton {
-    background: linear-gradient(145deg, #4CAF50, #43A047);
+    background: linear-gradient(145deg, var(--color-fun), var(--color-soda));
 }
 
 .subtract-button {
-    background: linear-gradient(145deg, #E76F51, #D45D3F);
+    background: linear-gradient(145deg, var(--color-danger), var(--color-danger-dark));
     width: 80px;
     height: 80px;
 }
 
 .reset-button {
-    background: linear-gradient(145deg, #F4A261, #E3914E);
+    background: linear-gradient(145deg, var(--color-reset), var(--color-reset-dark));
     width: 70px;
     height: 70px;
 }
@@ -256,7 +297,7 @@ main {
     font-size: 2.5rem;
     line-height: 1;
     font-weight: 300;
-    color: #F2F2F2;
+    color: var(--color-text);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
@@ -266,7 +307,7 @@ main {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     font-weight: 600;
-    color: #F2F2F2;
+    color: var(--color-text);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
@@ -294,14 +335,14 @@ main {
 
 /* Extra category chip */
 .extra-category-chip {
-    background: linear-gradient(145deg, #2D3142, #252A3A);
+    background: linear-gradient(145deg, var(--color-surface), var(--color-surface-deep));
     border-radius: 20px;
     padding: 0.75rem 1.5rem;
     display: flex;
     align-items: center;
     gap: 0.75rem;
     margin: 0.125rem 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow-control), 0 0 0 1px var(--color-border-subtle);
     position: relative;
     overflow: hidden;
 }
@@ -313,7 +354,7 @@ main {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.02) 75%);
+    background: linear-gradient(45deg, var(--color-overlay-light) 25%, transparent 25%, transparent 75%, var(--color-overlay-light) 75%);
     background-size: 20px 20px;
     pointer-events: none;
 }
@@ -325,9 +366,9 @@ main {
 
 .chip-count {
     font-size: 1.75rem;
-    color: #FFFFFF;
+    color: var(--color-text-strong);
     font-weight: 600;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-shadow: var(--shadow-text);
 }
 
 /* Chip buttons */
@@ -338,7 +379,7 @@ main {
 }
 
 .chip-add-button {
-    background: linear-gradient(145deg, #43A047, #388E3C);
+    background: linear-gradient(145deg, var(--color-soda), var(--color-soda-dark));
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -349,7 +390,7 @@ main {
 }
 
 .chip-subtract-button {
-    background: linear-gradient(145deg, #E76F51, #D45D3F);
+    background: linear-gradient(145deg, var(--color-danger), var(--color-danger-dark));
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -357,7 +398,7 @@ main {
 
 /* Confirm button */
 .confirm-button {
-    background: linear-gradient(145deg, #4A90E2, #357ABD);
+    background: linear-gradient(145deg, var(--color-accent), var(--color-accent-dark));
     width: 120px;
     height: 50px;
     border-radius: 25px;
@@ -369,7 +410,7 @@ main {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: #F2F2F2;
+    color: var(--color-text);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
@@ -380,7 +421,7 @@ main {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #222639;
+    background-color: var(--color-background);
     z-index: 1000;
     display: flex;
     flex-direction: column;
@@ -393,7 +434,7 @@ main {
 }
 
 .close-button {
-    background: linear-gradient(145deg, #E76F51, #D45D3F);
+    background: linear-gradient(145deg, var(--color-danger), var(--color-danger-dark));
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -401,7 +442,7 @@ main {
 
 .close-symbol {
     font-size: 1.5rem;
-    color: #F2F2F2;
+    color: var(--color-text);
     font-weight: 300;
 }
 
@@ -431,7 +472,7 @@ main {
 
 .cashier-count {
     font-size: 6rem;
-    color: #FFFFFF;
+    color: var(--color-text-strong);
     font-weight: 700;
     text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
@@ -483,18 +524,18 @@ main {
 /* Log View Styles */
 .log-section {
   margin-bottom: 2rem;
-  background: linear-gradient(145deg, #2D3142, #252A3A);
+    background: linear-gradient(145deg, var(--color-surface), var(--color-surface-deep));
   border-radius: 8px;
   padding: 1.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  box-shadow: var(--shadow-control), 0 0 0 1px var(--color-border-subtle);
 }
 
 .log-section h2 {
   font-size: 2rem;
-  color: #FFFFFF;
+  color: var(--color-text-strong);
   margin-bottom: 1rem;
   font-weight: normal;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  text-shadow: var(--shadow-text);
 }
 
 .log-entries {
@@ -506,7 +547,7 @@ main {
 
 .log-entries div {
   font-size: 1.25rem;
-  color: #F2F2F2;
+  color: var(--color-text);
   opacity: 0.9;
   padding: 0.5rem 0;
 }
@@ -543,7 +584,7 @@ main {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #222639;
+  background-color: var(--color-background);
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -574,8 +615,8 @@ main {
 .physical-form h2 {
   font-size: 2rem;
   font-weight: normal;
-  color: #FFFFFF;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: var(--color-text-strong);
+  text-shadow: var(--shadow-text);
   align-self: flex-start;
 }
 
@@ -588,7 +629,7 @@ main {
 
 .physical-field label {
   font-size: 1rem;
-  color: #F2F2F2;
+  color: var(--color-text);
   opacity: 0.8;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -596,15 +637,15 @@ main {
 }
 
 .physical-input {
-  background: linear-gradient(145deg, #2D3142, #252A3A);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(145deg, var(--color-surface), var(--color-surface-deep));
+  border: 1px solid var(--color-border-subtle);
   border-radius: 8px;
   padding: 1rem;
   font-size: 1.5rem;
-  color: #FFFFFF;
+  color: var(--color-text-strong);
   width: 100%;
   outline: none;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-control);
 }
 
 .physical-input:focus {
@@ -621,8 +662,8 @@ main {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: linear-gradient(145deg, #2D3142, #252A3A);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(145deg, var(--color-surface), var(--color-surface-deep));
+  border: 1px solid var(--color-border-subtle);
   border-radius: 8px;
   padding: 0.75rem 1.5rem;
   cursor: pointer;
@@ -632,23 +673,23 @@ main {
 }
 
 .gender-option:has(input:checked) {
-  border-color: rgba(255, 255, 255, 0.5);
-  background: linear-gradient(145deg, #3D4260, #353B52);
+  border-color: var(--color-border-strong);
+  background: linear-gradient(145deg, var(--color-surface-active), var(--color-surface-active-deep));
 }
 
 .gender-option input[type="radio"] {
-  accent-color: #4A90E2;
+  accent-color: var(--color-accent);
   width: 18px;
   height: 18px;
 }
 
 .gender-option span {
   font-size: 1.1rem;
-  color: #F2F2F2;
+  color: var(--color-text);
 }
 
 .save-button {
-  background: linear-gradient(145deg, #4A90E2, #357ABD);
+  background: linear-gradient(145deg, var(--color-accent), var(--color-accent-dark));
   width: 120px;
   height: 50px;
   border-radius: 25px;
@@ -660,23 +701,23 @@ main {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #F2F2F2;
+  color: var(--color-text);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 /* BAC Panel */
 .bac-panel {
-  background: linear-gradient(145deg, #1a2a4a, #142040);
+  background: linear-gradient(145deg, var(--color-bac-surface), var(--color-bac-surface-deep));
   border-radius: 8px;
   padding: 1.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(74, 144, 226, 0.3);
+  box-shadow: var(--shadow-control), var(--shadow-bac);
   text-align: center;
   margin-bottom: 2rem;
 }
 
 .bac-title {
   font-size: 1.25rem;
-  color: #F2F2F2;
+  color: var(--color-text);
   opacity: 0.7;
   font-weight: normal;
   text-transform: uppercase;
@@ -687,32 +728,32 @@ main {
 .bac-value {
   font-size: 3.5rem;
   font-weight: 700;
-  color: #4A90E2;
-  text-shadow: 0 2px 8px rgba(74, 144, 226, 0.4);
+  color: var(--color-accent);
+  text-shadow: var(--shadow-bac-text);
   margin-bottom: 0.5rem;
 }
 
 .bac-sober {
   font-size: 1rem;
-  color: #F2F2F2;
+  color: var(--color-text);
   opacity: 0.75;
   margin-bottom: 0.25rem;
 }
 
 .bac-note {
   font-size: 0.875rem;
-  color: #F2F2F2;
+  color: var(--color-text);
   opacity: 0.5;
   font-style: italic;
 }
 
 .bac-disclaimer {
   font-size: 0.75rem;
-  color: #F2F2F2;
+  color: var(--color-text);
   opacity: 0.4;
   font-style: italic;
   margin-top: 1rem;
   line-height: 1.4;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--color-border-subtle);
   padding-top: 0.75rem;
 }
